@@ -1,5 +1,5 @@
 # VP
-Проект по ВП
+Проект по ВП запускается так:
 g++ main.cpp ./models/Employee/Employee.cpp ./models/Supplier/Supplier.cpp ./models/User/User.cpp ./models/Authentication/Auth.cpp ./models/Utils/Utils.cpp
 
 ./a.exe или ./a.out
