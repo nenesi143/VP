@@ -1,0 +1,4 @@
+motya1 12345 admin
+motya2 12345 user
+krashovskii 0000 user
+  user
