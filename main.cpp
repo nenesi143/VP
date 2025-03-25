@@ -13,7 +13,7 @@ void MainMenu(wstring& role, vector<employee*>& employees, vector<supplier*>& su
 
 int main(){
 
-    setlocale(LC_ALL, "Russian");
+    setlocale(LC_ALL, "");
 
     vector<employee*> employees;
     vector<supplier*> suppliers;
@@ -33,14 +33,23 @@ int main(){
 }
 
 void MainMenu(wstring& role, vector<employee*>& employees, vector<supplier*>& suppliers){
+    
     employee* emp = nullptr;
     supplier* sup = nullptr;
+
     if (role == L"admin"){
 
         while (true) {
 
         wcout << L"|-------------------------------------------|" << endl;
-        wcout << L"| 1 - Вывести данные о пользователях        |" << endl;
+        wcout << L"| 1 - Создать объект класса сотрудник       |" << endl;
+        wcout << L"| 2 - Вывести данные о сотруднике           |" << endl;
+        wcout << L"| 3 - Создать объект класса поставщик       |" << endl;
+        wcout << L"| 4 - Вывести данные о поставщике           |" << endl;
+        wcout << L"| 5 - Сортировка сотрудников                |" << endl;
+        wcout << L"| 6 - Сортировка поставщиков                |" << endl;
+        wcout << L"| 7 - Удаление записи сотрудника            |" << endl;
+        wcout << L"| 8 - Удаление записи поставщика            |" << endl;
         wcout << L"| 0 - Выход из программы                    |" << endl;
         wcout << L"|-------------------------------------------|" << endl;
 
@@ -48,46 +57,6 @@ void MainMenu(wstring& role, vector<employee*>& employees, vector<supplier*>& su
             wcout << L"Введите номер команды: ";
             wcin >> command;
 
-            switch(command){
-                case 1:
-                    for (employee* emp : employees){
-                        emp->GetRecord();
-                        wcout << L"|-------------------------------------------|" << endl;
-                    }
-                    for (supplier* sup : suppliers){
-                        sup->GetRecord();
-                        wcout << L"|-------------------------------------------|" << endl;
-                    }
-                    break;
-                case 0:
-                    return;
-                default:
-                    wcout << L"Неверная команда! Попробуйте еще раз." << endl;
-                    break;
-            }
-        }
-    }
-    else if (role == L"user"){
-        while (true) {
-
-            wcout << L"|-------------------------------------------|" << endl;
-            wcout << L"| 1 - Создать объект класса сотрудник       |" << endl;
-            wcout << L"| 2 - Вывести данные о сотруднике           |" << endl;
-            wcout << L"| 3 - Создать объект класса поставщик       |" << endl;
-            wcout << L"| 4 - Вывести данные о поставщике           |" << endl;
-            wcout << L"| 5 - Сортировка сотрудников                |" << endl;
-            wcout << L"| 6 - Сортировка поставщиков                |" << endl;
-            wcout << L"| 7 - Удаление записи сотрудника            |" << endl;
-            wcout << L"| 8 - Удаление записи поставщика            |" << endl;
-            wcout << L"| 0 - Выход из программы                    |" << endl;
-            wcout << L"|-------------------------------------------|" << endl;
-            wcout << endl;
-    
-            int command;
-            wcout << L"Введите номер команды: ";
-            wcin >> command;
-            wcin.ignore();
-    
             switch(command){
                 case 1:
                     emp = new employee();
@@ -122,6 +91,44 @@ void MainMenu(wstring& role, vector<employee*>& employees, vector<supplier*>& su
                     break;
                 case 8:
                     DeleteSupplier(suppliers);
+                    break;
+                case 0:
+                    Auth auth;
+                    auth.SaveFromFile(employees, suppliers);
+                    return;
+                default:
+                    wcout << L"Неверная команда! Попробуйте еще раз." << endl;
+                    break;
+            }
+        }
+    }
+    else if (role == L"user"){
+        while (true) {
+
+            wcout << L"|-------------------------------------------|" << endl;
+            wcout << L"| 1 - Вывести данные о сотруднике           |" << endl;
+            wcout << L"| 2 - Вывести данные о поставщике           |" << endl;
+            wcout << L"| 0 - Выход из программы                    |" << endl;
+            wcout << L"|-------------------------------------------|" << endl;
+            wcout << endl;
+    
+            int command;
+            wcout << L"Введите номер команды: ";
+            wcin >> command;
+            wcin.ignore();
+    
+            switch(command){
+                case 1:
+                    for (employee* emp : employees){
+                        wcout << *emp;
+                        wcout << L"---------------------------------------------" << endl;
+                    }
+                    break;
+                case 2:
+                    for (supplier* sup : suppliers){
+                        wcout << *sup;
+                        wcout << L"---------------------------------------------" << endl;
+                    }
                     break;
                 case 0:
                     Auth auth;
